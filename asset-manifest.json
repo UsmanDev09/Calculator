@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/calculator/static/css/main.686bdba4.chunk.css",
-    "main.js": "/calculator/static/js/main.8ab541b4.chunk.js",
-    "main.js.map": "/calculator/static/js/main.8ab541b4.chunk.js.map",
-    "runtime-main.js": "/calculator/static/js/runtime-main.766fce28.js",
-    "runtime-main.js.map": "/calculator/static/js/runtime-main.766fce28.js.map",
-    "static/js/2.a0ee7363.chunk.js": "/calculator/static/js/2.a0ee7363.chunk.js",
-    "static/js/2.a0ee7363.chunk.js.map": "/calculator/static/js/2.a0ee7363.chunk.js.map",
-    "static/js/3.9391bf9f.chunk.js": "/calculator/static/js/3.9391bf9f.chunk.js",
-    "static/js/3.9391bf9f.chunk.js.map": "/calculator/static/js/3.9391bf9f.chunk.js.map",
-    "index.html": "/calculator/index.html",
-    "static/css/main.686bdba4.chunk.css.map": "/calculator/static/css/main.686bdba4.chunk.css.map",
-    "static/js/2.a0ee7363.chunk.js.LICENSE.txt": "/calculator/static/js/2.a0ee7363.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/calculator/static/media/logo.6ce24c58.svg"
+    "main.css": "/Calculator/static/css/main.686bdba4.chunk.css",
+    "main.js": "/Calculator/static/js/main.8ab541b4.chunk.js",
+    "main.js.map": "/Calculator/static/js/main.8ab541b4.chunk.js.map",
+    "runtime-main.js": "/Calculator/static/js/runtime-main.9fcfd978.js",
+    "runtime-main.js.map": "/Calculator/static/js/runtime-main.9fcfd978.js.map",
+    "static/js/2.a0ee7363.chunk.js": "/Calculator/static/js/2.a0ee7363.chunk.js",
+    "static/js/2.a0ee7363.chunk.js.map": "/Calculator/static/js/2.a0ee7363.chunk.js.map",
+    "static/js/3.9391bf9f.chunk.js": "/Calculator/static/js/3.9391bf9f.chunk.js",
+    "static/js/3.9391bf9f.chunk.js.map": "/Calculator/static/js/3.9391bf9f.chunk.js.map",
+    "index.html": "/Calculator/index.html",
+    "static/css/main.686bdba4.chunk.css.map": "/Calculator/static/css/main.686bdba4.chunk.css.map",
+    "static/js/2.a0ee7363.chunk.js.LICENSE.txt": "/Calculator/static/js/2.a0ee7363.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/Calculator/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.766fce28.js",
+    "static/js/runtime-main.9fcfd978.js",
     "static/js/2.a0ee7363.chunk.js",
     "static/css/main.686bdba4.chunk.css",
     "static/js/main.8ab541b4.chunk.js"
