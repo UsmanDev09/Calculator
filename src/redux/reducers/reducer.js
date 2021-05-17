@@ -1,15 +1,11 @@
-
+// if action.index === 1 then multiply divide with 1 else (previousNumber previousOperator currentNumver)
 
 
 function clearScreen() {
-    document.getElementById("input").innerHTML = " ";
     document.getElementById("output").innerHTML = " ";
+  
 }
 
-function appendSymbolToInputScreen(char){
-    document.getElementById("input").innerHTML = char;
-    
-}
 
 function appendSymbolToOutputScreen(char){
     document.getElementById("output").innerHTML = char;
@@ -18,8 +14,7 @@ function appendSymbolToOutputScreen(char){
 function calculate(operator,valueOne,valueTwo){
     let intValueOne = parseInt(valueOne);
     let intValueTwo = parseInt(valueTwo);
-    console.log("intValueOne",intValueOne);
-    console.log("intValueTwo",intValueTwo);
+    
     let result;
         switch(operator){
             case '+':
@@ -30,6 +25,7 @@ function calculate(operator,valueOne,valueTwo){
                
                return result; 
             case '*':
+                console.log("?mul",intValueOne * intValueTwo)
                 result = intValueOne * intValueTwo;
                
                 return result; 
@@ -48,14 +44,17 @@ const reducer = (state, action) => {
     switch(action.type){
      
     case "ADD":
-        appendSymbolToInputScreen(action.operator);
-        appendSymbolToOutputScreen(state.previousValue + action.operator);
-        finalResult = action.index !== 1 ? calculate(state.operator,( state.currentValue),state.result):calculate(action.operator,( state.currentValue),0) ;
-        console.log(action.index);
+    
+        appendSymbolToOutputScreen( action.operator);
+        action.previousValue && action.currentValue === ""  ? 
+        finalResult = 0: 
+        finalResult = action.index !== 1 ? calculate(state.operator === "="? action.operator : state.operator, state.operator === "=" ? 0:state.currentValue,state.result):calculate(action.operator,( state.currentValue),0) ;
+      
     return(  
             {
-                previousValue :state.previousValue + action.operator,
-                currentValue : "",    
+                ...state,
+                previousValue : state.previousValue ,
+                currentValue : state.previousValue && state.currentValue === "" ? action.operator: "",    
                 operator : action.operator,
                 result: finalResult,
                 index : action.index
@@ -64,27 +63,29 @@ const reducer = (state, action) => {
     )
 
     case "SUBTRACT":
-        appendSymbolToInputScreen(action.operator);
-        appendSymbolToOutputScreen(state.previousValue + action.operator);
-        finalResult = action.index !== 1 ? calculate(state.operator,( state.currentValue),state.result):calculate(action.operator,0,( state.currentValue)) ;
+        
+        appendSymbolToOutputScreen( action.operator);
+        finalResult = action.index !== 1 ? calculate(state.operator === "="? action.operator : state.operator,state.operator === "=" ? 0:state.currentValue,state.result):calculate(action.operator,0,( state.currentValue)) ;
     return(
             {
-                previousValue :state.previousValue + action.operator ,
-                currentValue : "",
+                ...state,
+                previousValue : state.previousValue ,
+                currentValue : state.previousValue === "" && state.currentValue === "" ? action.operator: "", 
                 result : finalResult,
                 operator : action.operator,
-                index : action.index
+                index : state.previousValue === "" && state.currentValue === "" ? 0:action.index
             }
     )
 
     case "MULTIPLY":
-        appendSymbolToInputScreen('*');
-        finalResult = action.index !== 1 ? calculate(state.operator,( state.currentValue),state.result):calculate(action.operator,1,( state.currentValue)) ;
-   
+        appendSymbolToOutputScreen(action.operator)
+        finalResult = action.index !== 1 ? calculate(state.operator === "="? action.operator : state.operator,state.operator === "=" ? 1:state.currentValue,state.result):calculate(action.operator,1,( state.result)) ;
+        console.log("s",calculate(action.operator,( state.currentValue),state.result));
     return(
             {
-                previousValue :state.previousValue + action.operator ,    // on output screen
-                currentValue : "",
+               ...state,
+                previousValue :state.previousValue  ,    
+                currentValue : action.previousValue && action.currentValue === "" ? action.operator: "", 
                 result : finalResult,
                 operator : action.operator,
                 index : action.index
@@ -94,12 +95,13 @@ const reducer = (state, action) => {
 
     case "DIVIDE":
      
-        appendSymbolToInputScreen('/');
-        finalResult = action.index !== 1 ? calculate(state.operator,( state.currentValue),state.result):calculate(action.operator,1,( state.currentValue)) ;
+        appendSymbolToOutputScreen(action.operator)
+        finalResult = action.index !== 1 ? calculate(state.operator === "="? action.operator : state.operator,state.operator === "=" ? 1:state.currentValue,state.result):calculate(action.operator,1,( state.currentValue)) ;
     return(
             {
-                previousValue :state.previousValue + action.operator ,    // on output screen
-                currentValue : "",
+                ...state,
+                previousValue :state.previousValue  ,    // on output screen
+                currentValue : action.previousValue && action.currentValue === "" ? action.operator: "", 
                 result : finalResult,
                 operator : action.operator,
                 index : action.index
@@ -107,13 +109,19 @@ const reducer = (state, action) => {
     )
 
     case "EQUAL":
-      
-        appendSymbolToInputScreen(state.result);
-        finalResult = action.index !== 1 ? calculate(state.operator,( state.currentValue),state.result):calculate(action.operator,0,( state.currentValue)) ;
+       
+       
+       
+        finalResult =  calculate(state.operator,( state.currentValue),state.result) ;
+        appendSymbolToOutputScreen(finalResult)
     return(
             {
+                ...state,
                 operator: '=',
-                result : finalResult
+                operatorClicked : true,
+                result : finalResult,
+                
+                currentValue : 0
             }
         
     )
@@ -123,23 +131,31 @@ const reducer = (state, action) => {
     return(
         {
             ...state,
+            previousValue:"",
+            currentValue:"",
+            operator:"",
+            result:0,
+            index:0
         }
         
     )
 
     case "DIGITS":
         console.log("store.result",state.result);
-            appendSymbolToInputScreen( state.previousValue+action.prev );
-            appendSymbolToOutputScreen( state.previousValue + action.prev );
+          
+            appendSymbolToOutputScreen( state.currentValue + action.cur );
+
             
         return(
             {
                 currentValue : state.currentValue +  action.cur , //on input screen
-                previousValue : state.previousValue + action.prev ,
+                
                 operator: state.operator,
                 operatorClicked: action.operatorClicked,
                 result : (state.operator === "" ) ?  (state.currentValue + action.cur)    : state.result,
-                index:action.index
+                
+                index:action.index,
+                previousValue : action.index> 0? state.result: "" 
             } 
     )
 
